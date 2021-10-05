@@ -1,6 +1,8 @@
 import { useState } from 'react';
+import { connect } from 'react-redux';
+import phoneActions from '../../redux/phonebook/phone-actions';
 
-export default function ContactForm({ onSubmit }) {
+const ContactForm = ({ onSubmit }) => {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
   const handleSubmit = e => {
@@ -55,4 +57,10 @@ export default function ContactForm({ onSubmit }) {
       </button>
     </form>
   );
-}
+};
+const mapDispatchToProps = dispatch => ({
+  onSubmit: ([name, number]) =>
+    dispatch(phoneActions.addContact([name, number])),
+});
+
+export default connect(null, mapDispatchToProps)(ContactForm);
